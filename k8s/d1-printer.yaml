@@ -1,0 +1,26 @@
+# Print five trips from one replay.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cityflow-d1-printer
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      labels: { app: cityflow-d1-printer }
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: ocir-secret
+      containers:
+        - name: d1-printer
+          image: cityflow-d1-printer:local
+          env:
+            - name: KAFKA_GROUP
+              value: cityflow-d1-printer
+          envFrom:
+            - configMapRef: { name: cityflow-kafka }
+            - secretRef: { name: cityflow-kafka-auth }
+          resources:
+            requests: { cpu: 50m, memory: 32Mi }
+            limits: { cpu: 250m, memory: 96Mi }

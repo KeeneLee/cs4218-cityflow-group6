@@ -1,0 +1,18 @@
+# Cloud identity, access tokens, and Terraform state
+.env
+.env.*
+*.pem
+*.key
+kubeconfig*
+terraform.tfvars
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl.bak
+crash.log
+
+# Local data and execution output
+/replayer/input/
+evidence/
+__pycache__/
+.venv/
